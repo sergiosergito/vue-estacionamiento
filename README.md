@@ -1,19 +1,28 @@
-# estacionamiento
+# Estacionamiento
 
-## Project setup
+Nombre de integrante:
+Sergio Rivera Mai
+
+### Paso 1
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Paso 2
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Paso 3
+
 ```
-npm run build
+json-server --watch db.json --port 4000
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Repositorio git
+
+```
+https://github.com/sergiosergito/vue-estacionamiento
+```
