@@ -8,6 +8,7 @@
       "secondLastName": "Mai",
       "area": "Producción",
       "vehicle": "Automóvil",
+      "plateNumber": "001 ABC",
       "color": "Amarillo"
     },
     {
@@ -17,7 +18,8 @@
       "firstLastName": "Céspedes",
       "secondLastName": "Acuña",
       "area": "Finanzas",
-      "vehicle": "Moto",
+      "vehicle": "Motocicleta",
+      "plateNumber": "026 DEF",
       "color": "Verde"
     },
     {
@@ -28,6 +30,7 @@
       "secondLastName": "Quijote",
       "area": "Contabilidad",
       "vehicle": "Automóvil",
+      "plateNumber": "401 GIH",
       "color": "Celeste"
     },
     {
@@ -37,7 +40,8 @@
       "firstLastName": "Quiroga",
       "secondLastName": "Bustamante",
       "area": "Producción",
-      "vehicle": "Moto",
+      "vehicle": "Motocicleta",
+      "plateNumber": "608 KML",
       "color": "Plomo"
     },
     {
@@ -48,6 +52,7 @@
       "secondLastName": "",
       "area": "Contabilidad",
       "vehicle": "Automóvil",
+      "plateNumber": "798 OTP",
       "color": "Negro"
     }
   ]
