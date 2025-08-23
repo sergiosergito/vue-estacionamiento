@@ -1,23 +1,31 @@
 <template>
-  <div class="parking-lot">
-    <label>
-      Filtro por tipo de vehiculo:
-      <select
-        v-model="vehicleFilter"
-        class="form-select form-select-lg mb-3"
-        aria-label=".form-select-lg example"
-      >
-        <option value="all">Todo tipo</option>
-        <option value="Automóvil">Automóvil</option>
-        <option value="Motocicleta">Motocicleta</option>
-      </select>
-    </label>
-    <input
-      type="text"
-      v-model="searchByFullName"
-      class="form-control mb-3"
-      placeholder="Buscar por nombres y apellidos de empleado "
-    />
+  <div class="container">
+    <p>
+      <button type="button" class="btn btn-primary" @click="goToNew()">
+        Nuevo
+      </button>
+    </p>
+    <div class="mb-3">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3"
+          >Filtrar por tipo de vehículo</span
+        >
+        <select v-model="vehicleFilter" class="form-select">
+          <option value="all">Todo tipo</option>
+          <option value="Automóvil">Automóvil</option>
+          <option value="Motocicleta">Motocicleta</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3"
+          >Buscar por nombres y apellidos</span
+        >
+        <input type="search" v-model="searchByFullName" class="form-control" />
+      </div>
+    </div>
     <table class="table table-bordered border-primary">
       <thead>
         <tr>
@@ -30,7 +38,7 @@
           <th scope="col">Vehículo</th>
           <th scope="col">Número de placa</th>
           <th scope="col">Color</th>
-          <th></th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -52,10 +60,33 @@
       </tbody>
     </table>
   </div>
+  <div class="modal fade" tabindex="-1" ref="modalRef">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ modalMode === "crear" ? "Crear" : "Editar" }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- modal body -->
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { Modal } from "bootstrap";
+
 export default {
   name: "EmployeesList",
   data() {
@@ -64,16 +95,34 @@ export default {
       items: [],
       searchByFullName: "",
       vehicleFilter: "all",
+      modalBootstrapInstance: null,
+      modalMode: "crear",
     };
   },
   components: {},
   created() {},
   mounted() {
+    this.$nextTick(() => {
+      if (this.$refs.modalRef) {
+        this.modalBootstrapInstance = new Modal(this.$refs.modalRef, {});
+        console.log("Modal initialized");
+      } else {
+        console.error("No se encontró el ref modalRef");
+      }
+    });
     this.getItems();
   },
   updated() {},
   destroyed() {},
   methods: {
+    goToNew() {
+      this.modalMode = "crear";
+      if (this.modalBootstrapInstance) {
+        this.modalBootstrapInstance.show();
+      } else {
+        console.error("modalBootstrapInstance no está inicializado");
+      }
+    },
     getItems() {
       axios
         .get(process.env.VUE_APP_API_URL + "/employee")
