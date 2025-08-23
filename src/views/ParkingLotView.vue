@@ -87,8 +87,7 @@ export default {
   },
   computed: {
     searchedItems() {
-      if (!this.searchByFullName.trim()) return this.items;
-      const search = this.searchByFullName.toLowerCase();
+      const search = this.searchByFullName.toLowerCase().trim();
 
       return this.items.filter((item) => {
         const fullName = [
@@ -100,14 +99,14 @@ export default {
           .filter(Boolean)
           .join(" ")
           .toLowerCase();
-        return fullName.includes(search);
+
+        const matchesName = !search || fullName.includes(search);
+
+        const matchesVehicle =
+          this.vehicleFilter === "all" || item.vehicle === this.vehicleFilter;
+
+        return matchesName && matchesVehicle;
       });
-    },
-    searchedItems() {
-      if (this.vehicleFilter === "all") {
-        return this.items;
-      }
-      return this.items.filter((item) => item.vehicle === this.vehicleFilter);
     },
   },
   props: {},
