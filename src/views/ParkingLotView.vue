@@ -74,7 +74,10 @@
           ></button>
         </div>
         <div class="modal-body">
-          <!-- modal body -->
+          <NewEmployee
+            v-if="modalMode == 'crear'"
+            @created="addNew($event)"
+          ></NewEmployee>
         </div>
       </div>
     </div>
@@ -86,6 +89,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Modal } from "bootstrap";
+import NewEmployee from "@/components/NewEmployee.vue";
 
 export default {
   name: "EmployeesList",
@@ -99,7 +103,9 @@ export default {
       modalMode: "crear",
     };
   },
-  components: {},
+  components: {
+    NewEmployee,
+  },
   created() {},
   mounted() {
     this.$nextTick(() => {
@@ -132,6 +138,24 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+    addNew($event) {
+      axios
+        .post(process.env.VUE_APP_API_URL + "/employee", $event)
+        .then((response) => {
+          this.getItems();
+          this.new = null;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      console.log($event);
+      this.cerrarModal();
+    },
+    cerrarModal() {
+      if (this.modalBootstrapInstance) {
+        this.modalBootstrapInstance.hide();
+      }
     },
   },
   computed: {
