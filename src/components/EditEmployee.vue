@@ -100,8 +100,6 @@ export default {
       this.$emit("update", this.edited);
     },
   },
-  mounted() {
-    console.log("here...?");
-  },
+  mounted() {},
 };
 </script>

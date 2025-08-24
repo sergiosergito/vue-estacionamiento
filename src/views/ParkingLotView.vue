@@ -60,7 +60,13 @@
             >
               Editar
             </button>
-            <button type="button" class="btn btn-danger">eliminar</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              @click="deleteItem(item)"
+            >
+              eliminar
+            </button>
           </td>
         </tr>
       </tbody>
@@ -128,7 +134,6 @@ export default {
     this.$nextTick(() => {
       if (this.$refs.modalRef) {
         this.modalBootstrapInstance = new Modal(this.$refs.modalRef, {});
-        console.log("Modal initialized");
       } else {
         console.error("No se encontró el ref modalRef");
       }
@@ -157,6 +162,7 @@ export default {
         });
     },
     addNew($event) {
+      $event.id = this.assignID();
       axios
         .post(process.env.VUE_APP_API_URL + "/employee", $event)
         .then((response) => {
@@ -166,7 +172,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-      console.log($event);
       this.cerrarModal();
     },
     cerrarModal() {
@@ -175,14 +180,9 @@ export default {
       }
     },
     openModal(index) {
-      //this.itemSelected = { ...this.items[index] };
       this.itemSelected = null;
       this.indexSelected = index;
       this.modalMode = "edit";
-      //console.log("item selected: " + this.itemSelected);
-      //console.log("item index: " + this.indexSelected);
-      //console.log("item recovered?: " + { ...this.searchedItems[index] });
-
       setTimeout(() => {
         if (this.modalBootstrapInstance) {
           this.modalBootstrapInstance.show();
@@ -206,13 +206,29 @@ export default {
         )
         .then((response) => {
           this.getItems();
-          //this.cleanFields();
-          //this.editedItem = null;
         })
         .catch((error) => {
           console.error(error);
         });
       this.closeModal();
+    },
+    assignID() {
+      if (this.items.length === 0) return 1;
+      let maxId = Math.max(...this.items.map((c) => c.id));
+      maxId++;
+      return maxId.toString();
+    },
+    deleteItem(value) {
+      if (confirm("¿Está seguro de eliminar este ítem?")) {
+        axios
+          .delete(process.env.VUE_APP_API_URL + "/employee/" + value.id)
+          .then((response) => {
+            this.getItems();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   },
   computed: {

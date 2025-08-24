@@ -67,15 +67,26 @@
       "color": "rosa"
     },
     {
-      "id": "7",
-      "firstName": "Marco",
+      "id": "8",
+      "firstName": "Alejandra",
       "middleName": "",
-      "firstLastName": "Aranibar",
+      "firstLastName": "Echeverria",
+      "secondLastName": "",
+      "area": "Finanzas",
+      "vehicle": "Automóvil",
+      "plateNumber": "124 AEC",
+      "color": "Rojo"
+    },
+    {
+      "id": "9",
+      "firstName": "Natalia",
+      "middleName": "",
+      "firstLastName": "Cabrera",
       "secondLastName": "",
       "area": "Producción",
       "vehicle": "Automóvil",
-      "plateNumber": "966 STA",
-      "color": "Negro"
+      "plateNumber": "NAT 268",
+      "color": "Verde"
     }
   ]
 }
