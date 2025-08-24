@@ -32,3 +32,9 @@ https://github.com/sergiosergito/vue-estacionamiento
 ```
 http://localhost:3000/employee
 ```
+
+### archivo .env.local
+
+```
+VUE_APP_API_URL = http://localhost:3000
+```
