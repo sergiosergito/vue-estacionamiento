@@ -53,7 +53,13 @@
           <td>{{ item.plateNumber }}</td>
           <td>{{ item.color }}</td>
           <td>
-            <button type="button" class="btn btn-primary">Editar</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="openModal(index)"
+            >
+              Editar
+            </button>
             <button type="button" class="btn btn-danger">eliminar</button>
           </td>
         </tr>
@@ -71,9 +77,16 @@
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
+            aria-label="Cerrar"
           ></button>
         </div>
         <div class="modal-body">
+          <EditEmployee
+            v-if="modalMode == 'edit' && itemSelected"
+            :item="itemSelected"
+            @update="saveEdition"
+            @cancelar="closeModal"
+          />
           <NewEmployee
             v-if="modalMode == 'crear'"
             @created="addNew($event)"
@@ -90,6 +103,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Modal } from "bootstrap";
 import NewEmployee from "@/components/NewEmployee.vue";
+import EditEmployee from "@/components/EditEmployee.vue";
 
 export default {
   name: "EmployeesList",
@@ -101,10 +115,13 @@ export default {
       vehicleFilter: "all",
       modalBootstrapInstance: null,
       modalMode: "crear",
+      itemSelected: null,
+      indexSelected: 0,
     };
   },
   components: {
     NewEmployee,
+    EditEmployee,
   },
   created() {},
   mounted() {
@@ -156,6 +173,46 @@ export default {
       if (this.modalBootstrapInstance) {
         this.modalBootstrapInstance.hide();
       }
+    },
+    openModal(index) {
+      //this.itemSelected = { ...this.items[index] };
+      this.itemSelected = null;
+      this.indexSelected = index;
+      this.modalMode = "edit";
+      //console.log("item selected: " + this.itemSelected);
+      //console.log("item index: " + this.indexSelected);
+      //console.log("item recovered?: " + { ...this.searchedItems[index] });
+
+      setTimeout(() => {
+        if (this.modalBootstrapInstance) {
+          this.modalBootstrapInstance.show();
+          this.itemSelected = { ...this.items[index] };
+        } else {
+          console.error("modalBootstrapInstance no está inicializado");
+        }
+      });
+    },
+    closeModal() {
+      if (this.modalBootstrapInstance) {
+        this.modalBootstrapInstance.hide();
+      }
+    },
+    saveEdition(editedItem) {
+      this.items[this.indexSelected] = editedItem;
+      axios
+        .put(
+          process.env.VUE_APP_API_URL + "/employee/" + editedItem.id,
+          editedItem
+        )
+        .then((response) => {
+          this.getItems();
+          //this.cleanFields();
+          //this.editedItem = null;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      this.closeModal();
     },
   },
   computed: {

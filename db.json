@@ -47,24 +47,35 @@
     {
       "id": "5",
       "firstName": "Carlos",
-      "middleName": "",
+      "middleName": "Daniel",
       "firstLastName": "Rocabado",
       "secondLastName": "",
       "area": "Contabilidad",
-      "vehicle": "Automóvil",
+      "vehicle": "Motocicleta",
       "plateNumber": "798 OTP",
       "color": "Negro"
     },
     {
-      "id": "aea9",
-      "firstName": "aaa",
+      "id": "6",
+      "firstName": "Rebeca",
       "middleName": "",
-      "firstLastName": "bbb",
+      "firstLastName": "Noe",
       "secondLastName": "",
       "area": "production",
-      "vehicle": "motorcycle",
-      "plateNumber": "2020 babe",
+      "vehicle": "Motocicleta",
+      "plateNumber": "202 BAB",
       "color": "rosa"
+    },
+    {
+      "id": "7",
+      "firstName": "Marco",
+      "middleName": "",
+      "firstLastName": "Aranibar",
+      "secondLastName": "",
+      "area": "Producción",
+      "vehicle": "Automóvil",
+      "plateNumber": "966 STA",
+      "color": "Negro"
     }
   ]
 }

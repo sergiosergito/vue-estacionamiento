@@ -59,9 +59,9 @@
           :class="{ 'is-invalid': v$.item.vehicle.$error }"
         >
           <option value="">Seleccione</option>
-          <option value="vehicle">Vehículo</option>
-          <option value="motorcycle">Motocicleta</option>
-          <option value="None">Sin vehículo</option>
+          <option value="Automóvil">Automóvil</option>
+          <option value="Motocicleta">Motocicleta</option>
+          <option value="Sin vehículo">Sin vehículo</option>
         </select>
         <div class="invalid-feedback">Debe seleccionar una opción</div>
       </div>
